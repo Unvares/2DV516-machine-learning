@@ -1,0 +1,20 @@
+# Python files
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Virtual environment
+venv/
+env/
+
+# IDE-specific (PyCharm, VS Code)
+.idea/
+.vscode/
