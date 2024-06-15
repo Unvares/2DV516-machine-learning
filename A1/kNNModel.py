@@ -34,14 +34,19 @@ class kNNModel:
             )
         self.X_train = X
         self.y_train = y
-        if X_test is None:
+        if X_test is not None and y_test is None:
+            raise ValueError(
+                "Both 'X_test' and 'y_test' must have a value or both must be None."
+            )
+        elif X_test is None and y_test is not None:
+            raise ValueError(
+                "Both 'X_test' and 'y_test' must have a value or both must be None."
+            )
+        elif X_test is None and y_test is None:
             self.X_test = X
-        else:
-            self.X_test = X_test
-
-        if y_test is None:
             self.y_test = y
         else:
+            self.X_test = X_test
             self.y_test = y_test
 
     def classify(self, X, k=5):
@@ -51,13 +56,13 @@ class kNNModel:
                 "the number of features in the training set",
             )
 
-        num_points = len(X)
-        num_labels = len(self.X_train)
-        point_distances = np.empty((num_points, num_labels))
+        num_features = len(X)
+        num_points = len(self.y_train)
+        point_distances = np.empty((num_features, num_points))
         for i, point in enumerate(X):
             point_distances[i] = self.euclidian_distance(self.X_train, point)
 
-        predicted_labels = np.empty(num_points, dtype=float)
+        predicted_labels = np.empty(num_features, dtype=float)
         for i, distances in enumerate(point_distances):
             k_closest_indices = np.argpartition(distances, k)[:k]
             labels, counts = np.unique(
@@ -104,3 +109,6 @@ class kNNModel:
             closest_point_label = y[closest_point_index]
             total_error += np.square(D_labels[i] - closest_point_label)
         return total_error / len(D_features)
+
+    def accuracy(self, labels):
+        return np.sum(self.y_test == labels) / len(self.y_test)
