@@ -48,8 +48,26 @@ class MachineLearningModel(ABC):
         """
         pass
 
+    def normalize(self, X):
+        """
+        Normalize the input features using standard deviation.
+        Works both for matrices and vectors.
 
-def _polynomial_features(self, X):
+        Parameters:
+        X (array-like): Features of the data
+
+        Returns:
+        array-like: The normalized data.
+        """
+        self.mean = np.mean(X, axis=0)
+        self.std = np.std(X, axis=0)
+        # Set standard deviation to 1 for features with constant values
+        self.std[self.std == 0] = 1
+        # Normalize only non-constant features
+        X_normalized = np.where(self.std != 1, (X - self.mean) / self.std, X)
+        return X_normalized
+
+
     """
     Generate polynomial features from the input features.
     Check the slides for hints on how to implement this one.
@@ -118,25 +136,6 @@ class RegressionModelNormalEquation(MachineLearningModel):
         y_predicted = self.predict(X)
         return np.mean((y_predicted - y) ** 2)
 
-    def normalize(self, X):
-        """
-        Normalize the input features using standard deviation.
-        Works both for matrices and vectors.
-
-        Parameters:
-        X (array-like): Features of the data
-
-        Returns:
-        array-like: The normalized data.
-        """
-        self.mean = np.mean(X, axis=0)
-        self.std = np.std(X, axis=0)
-        # Set standard deviation to 1 for features with constant values
-        self.std[self.std == 0] = 1
-        # Normalize only non-constant features
-        X_normalized = np.where(self.std != 1, (X - self.mean) / self.std, X)
-        return X_normalized
-
 
 class RegressionModelGradientDescent(MachineLearningModel):
     """
@@ -152,7 +151,9 @@ class RegressionModelGradientDescent(MachineLearningModel):
         learning_rate (float): Learning rate for gradient descent.
         num_iterations (int): Number of iterations for gradient descent.
         """
-        # --- Write your code here ---#
+        self.degree = degree
+        self.learning_rate = learning_rate
+        self.num_iterations = num_iterations
 
     def fit(self, X, y):
         """
@@ -165,7 +166,16 @@ class RegressionModelGradientDescent(MachineLearningModel):
         Returns:
         None
         """
-        # --- Write your code here ---#
+        self.cost_history = []
+        self.B = np.zeros(X.shape[1])
+
+        for _ in range(self.num_iterations):
+            residuals = np.dot(X, self.B) - y
+            gradient = np.dot(X.T, residuals)
+            self.B = self.B - self.learning_rate * gradient
+
+            MSE = np.mean(residuals**2)
+            self.cost_history.append(MSE)
 
     def predict(self, X):
         """
@@ -177,7 +187,7 @@ class RegressionModelGradientDescent(MachineLearningModel):
         Returns:
         predictions (array-like): Predicted values.
         """
-        # --- Write your code here ---#
+        return np.dot(X, self.B)
 
     def evaluate(self, X, y):
         """
@@ -190,7 +200,8 @@ class RegressionModelGradientDescent(MachineLearningModel):
         Returns:
         score (float): Evaluation score (MSE).
         """
-        # --- Write your code here ---#
+        y_predicted = self.predict(X)
+        return np.mean((y_predicted - y) ** 2)
 
 
 class LogisticRegression:
