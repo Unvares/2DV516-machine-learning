@@ -61,24 +61,35 @@ class MachineLearningModel(ABC):
         """
         self.mean = np.mean(X, axis=0)
         self.std = np.std(X, axis=0)
+
+        # Ensure self.mean and self.std are always arrays
+        self.mean = np.atleast_1d(self.mean)
+        self.std = np.atleast_1d(self.std)
+
         # Set standard deviation to 1 for features with constant values
         self.std[self.std == 0] = 1
+
         # Normalize only non-constant features
         X_normalized = np.where(self.std != 1, (X - self.mean) / self.std, X)
+
         return X_normalized
 
+    def _polynomial_features(self, X):
+        """
+        Generate polynomial features from the input features.
+        Check the slides for hints on how to implement this one.
+        This method is used by the regression models and must work
+        for any degree polynomial
+        Parameters:
 
-    """
-    Generate polynomial features from the input features.
-    Check the slides for hints on how to implement this one.
-    This method is used by the regression models and must work
-    for any degree polynomial
-    Parameters:
-    X (array-like): Features of the data.
+        X (array-like): Features of the data.
 
-    Returns:
-    X_poly (array-like): Polynomial features.
-    """
+        Returns:
+        X_poly (array-like): Polynomial features.
+        """
+        return np.hstack(
+            [np.ones((X.shape[0], 1))] + [X**i for i in range(1, self.degree + 1)]
+        )
 
 
 class RegressionModelNormalEquation(MachineLearningModel):
@@ -93,7 +104,7 @@ class RegressionModelNormalEquation(MachineLearningModel):
         Parameters:
         degree (int): Degree of the polynomial features.
         """
-        self.mean = self.standard_deviation = np.zeros(3)
+        self.degree = degree
 
     def fit(self, X, y):
         """
@@ -106,9 +117,11 @@ class RegressionModelNormalEquation(MachineLearningModel):
         Returns:
         None
         """
-        XTX_inverse = np.linalg.inv(np.dot(X.T, X))
-        XT_y = np.dot(X.T, y)
-        self.B = np.dot(XTX_inverse, XT_y)
+        X_poly = self._polynomial_features(X)
+        self.theta = np.zeros(X_poly.shape[1])
+        XtX_inverse = np.linalg.inv(np.dot(X_poly.T, X_poly))
+        Xt_y = np.dot(X_poly.T, y)
+        self.theta = np.dot(XtX_inverse, Xt_y)
 
     def predict(self, X):
         """
@@ -120,7 +133,8 @@ class RegressionModelNormalEquation(MachineLearningModel):
         Returns:
         predictions (array-like): Predicted values.
         """
-        return np.dot(X, self.B)
+        X_poly = self._polynomial_features(X)
+        return np.dot(X_poly, self.theta)
 
     def evaluate(self, X, y):
         """
@@ -167,12 +181,13 @@ class RegressionModelGradientDescent(MachineLearningModel):
         None
         """
         self.cost_history = []
-        self.B = np.zeros(X.shape[1])
+        X_poly = self._polynomial_features(X)
+        self.theta = np.zeros(X_poly.shape[1])
 
         for _ in range(self.num_iterations):
-            residuals = np.dot(X, self.B) - y
-            gradient = np.dot(X.T, residuals)
-            self.B = self.B - self.learning_rate * gradient
+            residuals = np.dot(X_poly, self.theta) - y
+            gradient = np.dot(X_poly.T, residuals)
+            self.theta = self.theta - self.learning_rate * gradient
 
             MSE = np.mean(residuals**2)
             self.cost_history.append(MSE)
@@ -187,7 +202,8 @@ class RegressionModelGradientDescent(MachineLearningModel):
         Returns:
         predictions (array-like): Predicted values.
         """
-        return np.dot(X, self.B)
+        X_poly = self._polynomial_features(X)
+        return np.dot(X_poly, self.theta)
 
     def evaluate(self, X, y):
         """
