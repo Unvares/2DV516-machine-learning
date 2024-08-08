@@ -87,9 +87,19 @@ class MachineLearningModel(ABC):
         Returns:
         X_poly (array-like): Polynomial features.
         """
+        # Ensure X is 2D if it's not already
+        if X.ndim == 1:
+            X = X.reshape(-1, 1)
         return np.hstack(
             [np.ones((X.shape[0], 1))] + [X**i for i in range(1, self.degree + 1)]
         )
+
+    def score(self, X, y):
+        y_pred = self.predict(X)
+        tss = np.sum((y - np.mean(y)) ** 2)
+        rss = np.sum((y - y_pred) ** 2)
+        r2 = 1 - (rss / tss)
+        return r2
 
 
 class RegressionModelNormalEquation(MachineLearningModel):
