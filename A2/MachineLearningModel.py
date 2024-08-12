@@ -66,12 +66,9 @@ class MachineLearningModel(ABC):
         self.mean = np.atleast_1d(self.mean)
         self.std = np.atleast_1d(self.std)
 
-        # Set standard deviation to 1 for features with constant values
+        # Set intercepts equal to 1 (otherwise they will not be counted at all)
         self.std[self.std == 0] = 1
-
-        # Normalize only non-constant features
         X_normalized = np.where(self.std != 1, (X - self.mean) / self.std, X)
-
         return X_normalized
 
     def _polynomial_features(self, X):
@@ -166,7 +163,7 @@ class RegressionModelGradientDescent(MachineLearningModel):
     Class for regression models using gradient descent optimization.
     """
 
-    def __init__(self, degree, learning_rate=0.01, num_iterations=1000):
+    def __init__(self, degree, learning_rate=0.01, num_iterations=3000):
         """
         Initialize the model with the specified parameters.
 
@@ -230,7 +227,7 @@ class RegressionModelGradientDescent(MachineLearningModel):
         return np.mean((y_predicted - y) ** 2)
 
 
-class LogisticRegression:
+class LogisticRegression(MachineLearningModel):
     """
     Logistic Regression model using gradient descent optimization.
     """
@@ -243,7 +240,10 @@ class LogisticRegression:
         learning_rate (float): The learning rate for gradient descent.
         num_iterations (int): The number of iterations for gradient descent.
         """
-        # --- Write your code here ---#
+        self.degree = 1
+        self.learning_rate = learning_rate
+        self.num_iterations = num_iterations
+        self.convergence_iteration = 0
 
     def fit(self, X, y):
         """
@@ -256,7 +256,25 @@ class LogisticRegression:
         Returns:
         None
         """
-        # --- Write your code here ---#
+        self.cost_history = []
+        X_poly = self._polynomial_features(X)
+        self.theta = np.zeros(X_poly.shape[1])
+        tolerance = 1e-8  # Convergence threshold
+        check_interval = 3  # Number of last values to check
+
+        for i in range(self.num_iterations):
+            z = X_poly @ self.theta
+            h = self._sigmoid(z)
+            gradient = (X_poly.T @ (h - y)) / len(y)
+            self.theta -= self.learning_rate * gradient
+
+            cost = self._cost_function(X_poly, y)
+            self.cost_history.append(cost)
+
+            if i >= check_interval and self.convergence_iteration == 0:
+                recent_costs = self.cost_history[-check_interval:]
+                if np.std(recent_costs) < tolerance:
+                    self.convergence_iteration = i
 
     def predict(self, X):
         """
@@ -268,7 +286,9 @@ class LogisticRegression:
         Returns:
         predictions (array-like): Predicted probabilities.
         """
-        # --- Write your code here ---#
+        X_poly = self._polynomial_features(X)
+        z = X_poly @ self.theta
+        return self._sigmoid(z)
 
     def evaluate(self, X, y):
         """
@@ -281,7 +301,9 @@ class LogisticRegression:
         Returns:
         score (float): Evaluation score (e.g., accuracy).
         """
-        # --- Write your code here ---#
+        predictions = self.predict(X)
+        predictions = (predictions >= 0.5).astype(int)
+        return np.mean(predictions == y)
 
     def _sigmoid(self, z):
         """
@@ -293,7 +315,8 @@ class LogisticRegression:
         Returns:
         result (array-like): Output of the sigmoid function.
         """
-        # --- Write your code here ---#
+        z = np.clip(z, -500, 500)  # Clip values to prevent overflow
+        return 1 / (1 + np.exp(-z))
 
     def _cost_function(self, X, y):
         """
@@ -306,7 +329,11 @@ class LogisticRegression:
         Returns:
         cost (float): The logistic regression cost.
         """
-        # --- Write your code here ---#
+        epsilon = 1e-8  # Small value to avoid log(0)
+        z = X @ self.theta
+        h = self._sigmoid(z)
+        h = np.clip(h, epsilon, 1 - epsilon)
+        return -np.mean(y.T * np.log(h) + (1 - y).T * np.log(1 - h))
 
 
 class NonLinearLogisticRegression:
@@ -324,7 +351,10 @@ class NonLinearLogisticRegression:
         learning_rate (float): The learning rate for gradient descent.
         num_iterations (int): The number of iterations for gradient descent.
         """
-        # --- Write your code here ---#
+        self.degree = degree
+        self.learning_rate = learning_rate
+        self.num_iterations = num_iterations
+        self.convergence_iteration = 0
 
     def fit(self, X, y):
         """
@@ -337,7 +367,25 @@ class NonLinearLogisticRegression:
         Returns:
         None
         """
-        # --- Write your code here ---#
+        self.cost_history = []
+        X_poly = self.mapFeature(X[:, 0], X[:, 1], self.degree)
+        self.theta = np.zeros(X_poly.shape[1])
+        tolerance = 1e-8  # Convergence threshold
+        check_interval = 3  # Number of last values to check
+
+        for i in range(self.num_iterations):
+            z = X_poly @ self.theta
+            h = self._sigmoid(z)
+            gradient = (X_poly.T @ (h - y)) / len(y)
+            self.theta -= self.learning_rate * gradient
+
+            cost = self._cost_function(X_poly, y)
+            self.cost_history.append(cost)
+
+            if i >= check_interval and self.convergence_iteration == 0:
+                recent_costs = self.cost_history[-check_interval:]
+                if np.std(recent_costs) < tolerance:
+                    self.convergence_iteration = i
 
     def predict(self, X):
         """
@@ -349,7 +397,9 @@ class NonLinearLogisticRegression:
         Returns:
         predictions (array-like): Predicted probabilities.
         """
-        # --- Write your code here ---#
+        X_poly = self.mapFeature(X[:, 0], X[:, 1], self.degree)
+        z = X_poly @ self.theta
+        return self._sigmoid(z)
 
     def evaluate(self, X, y):
         """
@@ -362,7 +412,9 @@ class NonLinearLogisticRegression:
         Returns:
         cost (float): The logistic regression cost.
         """
-        # --- Write your code here ---#
+        predictions = self.predict(X)
+        predictions = (predictions >= 0.5).astype(int)
+        return np.mean(predictions == y)
 
     def _sigmoid(self, z):
         """
@@ -374,7 +426,8 @@ class NonLinearLogisticRegression:
         Returns:
         result (array-like): Output of the sigmoid function.
         """
-        # --- Write your code here ---#
+        z = np.clip(z, -500, 500)  # Clip values to prevent overflow
+        return 1 / (1 + np.exp(-z))
 
     def mapFeature(self, X1, X2, D):
         """
@@ -388,7 +441,14 @@ class NonLinearLogisticRegression:
         Returns:
         X_poly (array-like): Polynomial features.
         """
-        # --- Write your code here ---#
+        one = np.ones([len(X1), 1])
+        X_poly = np.c_[one, X1, X2]
+        for i in range(2, D + 1):
+            for j in range(0, i + 1):
+                Xnew = X1 ** (i - j) * X2**j
+                Xnew = Xnew.reshape(-1, 1)
+                X_poly = np.append(X_poly, Xnew, 1)
+        return X_poly
 
     def _cost_function(self, X, y):
         """
@@ -401,4 +461,8 @@ class NonLinearLogisticRegression:
         Returns:
         cost (float): The logistic regression cost.
         """
-        # --- Write your code here ---#
+        epsilon = 1e-8  # Small value to avoid log(0)
+        z = X @ self.theta
+        h = self._sigmoid(z)
+        h = np.clip(h, epsilon, 1 - epsilon)
+        return -np.mean(y.T * np.log(h) + (1 - y).T * np.log(1 - h))
