@@ -19,7 +19,8 @@ class ROCAnalysis:
             y_predicted (list): Predicted labels (0 or 1).
             y_true (list): True labels (0 or 1).
         """
-        # --- Write your code here ---#
+        self.y_pred = y_predicted
+        self.y_true = y_true
 
     def tp_rate(self):
         """
@@ -28,7 +29,7 @@ class ROCAnalysis:
         Returns:
             float: True Positive Rate.
         """
-        # --- Write your code here ---#
+        return sum((self.y_pred[i] == 1) and (self.y_true[i] == 1) for i in range(len(self.y_true)))
 
     def fp_rate(self):
         """
@@ -37,7 +38,7 @@ class ROCAnalysis:
         Returns:
             float: False Positive Rate.
         """
-        # --- Write your code here ---#
+        return sum((self.y_pred[i] == 1) and (self.y_true[i] == 0) for i in range(len(self.y_true)))
 
     def precision(self):
         """
@@ -46,7 +47,9 @@ class ROCAnalysis:
         Returns:
             float: Precision.
         """
-        # --- Write your code here ---#
+        tp = self.tp_rate()
+        fp = self.fp_rate()
+        return tp / (tp + fp) if (tp + fp) > 0 else 0
 
     def f_score(self, beta=1):
         """
@@ -58,4 +61,8 @@ class ROCAnalysis:
         Returns:
             float: F-score.
         """
-        # --- Write your code here ---#
+        precision = self.precision()
+        recall = self.tp_rate()
+        if (precision + recall) == 0:
+            return 0
+        return (1 + beta**2) * (precision * recall) / (beta**2 * precision + recall)
