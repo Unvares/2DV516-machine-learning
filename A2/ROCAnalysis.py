@@ -29,7 +29,15 @@ class ROCAnalysis:
         Returns:
             float: True Positive Rate.
         """
-        return sum((self.y_pred[i] == 1) and (self.y_true[i] == 1) for i in range(len(self.y_true)))
+        tp = sum(
+            (self.y_pred[i] == 1) and (self.y_true[i] == 1)
+            for i in range(len(self.y_true))
+        )
+        fn = sum(
+            (self.y_pred[i] == 0) and (self.y_true[i] == 1)
+            for i in range(len(self.y_true))
+        )
+        return tp / (tp + fn) if (tp + fn) > 0 else 0
 
     def fp_rate(self):
         """
@@ -38,7 +46,15 @@ class ROCAnalysis:
         Returns:
             float: False Positive Rate.
         """
-        return sum((self.y_pred[i] == 1) and (self.y_true[i] == 0) for i in range(len(self.y_true)))
+        fp = sum(
+            (self.y_pred[i] == 1) and (self.y_true[i] == 0)
+            for i in range(len(self.y_true))
+        )
+        tn = sum(
+            (self.y_pred[i] == 0) and (self.y_true[i] == 0)
+            for i in range(len(self.y_true))
+        )
+        return fp / (fp + tn) if (fp + tn) > 0 else 0
 
     def precision(self):
         """
