@@ -1,0 +1,372 @@
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 1e-05
+  Number of Epochs: 250
+  Number of Hidden Layers: 2
+  Layer Sizes: 784 -> [64 -> 32] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 3.5301
+Epoch 25, Average Loss: 0.3500
+Epoch 50, Average Loss: 0.2777
+Epoch 75, Average Loss: 0.2386
+Epoch 100, Average Loss: 0.2108
+Epoch 125, Average Loss: 0.1897
+Epoch 150, Average Loss: 0.1706
+Stopping at epoch 159 with average loss of 0.1655 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 1m 20.22s
+Accuracy on the test dataset: 87.08%
+Improvement per second of computation: 1.085477%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 1e-05
+  Number of Epochs: 250
+  Number of Hidden Layers: 3
+  Layer Sizes: 784 -> [512 -> 256 -> 128] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 0.7738
+Epoch 25, Average Loss: 0.1592
+Epoch 50, Average Loss: 0.0719
+Epoch 75, Average Loss: 0.0286
+Stopping at epoch 85 with average loss of 0.0201 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 1m 46.84s
+Accuracy on the test dataset: 88.88%
+Improvement per second of computation: 0.831873%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 0.001
+  Number of Epochs: 500
+  Number of Hidden Layers: 4
+  Layer Sizes: 784 -> [512 -> 256 -> 128 -> 64] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 0.5294
+Epoch 50, Average Loss: 0.1564
+Stopping at epoch 86 with average loss of 0.1224 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 2m 5.02s
+Accuracy on the test dataset: 88.27%
+Improvement per second of computation: 0.706029%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 1e-06
+  Number of Epochs: 250
+  Number of Hidden Layers: 2
+  Layer Sizes: 784 -> [128 -> 64] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 4.7736
+Epoch 25, Average Loss: 0.5874
+Epoch 50, Average Loss: 0.4652
+Epoch 75, Average Loss: 0.4076
+Epoch 100, Average Loss: 0.3701
+Epoch 125, Average Loss: 0.3423
+Epoch 150, Average Loss: 0.3203
+Epoch 175, Average Loss: 0.3021
+Epoch 200, Average Loss: 0.2868
+Epoch 225, Average Loss: 0.2732
+Epoch 250, Average Loss: 0.2614
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 2m 34.78s
+Accuracy on the test dataset: 86.23%
+Improvement per second of computation: 0.557123%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 0.0005
+  Number of Epochs: 100
+  Number of Hidden Layers: 4
+  Layer Sizes: 784 -> [64 -> 32 -> 16 -> 8] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 0.7156
+Epoch 10, Average Loss: 0.2849
+Epoch 20, Average Loss: 0.2390
+Epoch 30, Average Loss: 0.2139
+Stopping at epoch 30 with average loss of 0.2139 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 0m 21.32s
+Accuracy on the test dataset: 87.98%
+Improvement per second of computation: 4.127441%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 0.0001
+  Number of Epochs: 500
+  Number of Hidden Layers: 2
+  Layer Sizes: 784 -> [64 -> 32] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 0.8960
+Stopping at epoch 32 with average loss of 0.1768 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 0m 19.05s
+Accuracy on the test dataset: 87.48%
+Improvement per second of computation: 4.593205%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 0.001
+  Number of Epochs: 500
+  Number of Hidden Layers: 1
+  Layer Sizes: 784 -> [256] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 1.4770
+Epoch 50, Average Loss: 0.3411
+Epoch 100, Average Loss: 0.3142
+Stopping at epoch 114 with average loss of 0.3075 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 1m 23.07s
+Accuracy on the test dataset: 83.27%
+Improvement per second of computation: 1.002461%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 1e-05
+  Number of Epochs: 100
+  Number of Hidden Layers: 1
+  Layer Sizes: 784 -> [128] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 5.2318
+Epoch 10, Average Loss: 0.6933
+Epoch 20, Average Loss: 0.4548
+Epoch 30, Average Loss: 0.3452
+Epoch 40, Average Loss: 0.2812
+Epoch 50, Average Loss: 0.2391
+Epoch 60, Average Loss: 0.2077
+Epoch 70, Average Loss: 0.1854
+Epoch 80, Average Loss: 0.1672
+Epoch 90, Average Loss: 0.1512
+Epoch 100, Average Loss: 0.1367
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 0m 51.40s
+Accuracy on the test dataset: 86.46%
+Improvement per second of computation: 1.681966%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 0.0005
+  Number of Epochs: 500
+  Number of Hidden Layers: 3
+  Layer Sizes: 784 -> [256 -> 128 -> 64] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 0.5212
+Stopping at epoch 32 with average loss of 0.1627 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 0m 29.24s
+Accuracy on the test dataset: 88.90%
+Improvement per second of computation: 3.040782%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 1e-05
+  Number of Epochs: 100
+  Number of Hidden Layers: 2
+  Layer Sizes: 784 -> [64 -> 32] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 2.7881
+Epoch 10, Average Loss: 0.4791
+Epoch 20, Average Loss: 0.3859
+Epoch 30, Average Loss: 0.3371
+Epoch 40, Average Loss: 0.3052
+Epoch 50, Average Loss: 0.2820
+Epoch 60, Average Loss: 0.2636
+Epoch 70, Average Loss: 0.2486
+Epoch 80, Average Loss: 0.2353
+Epoch 90, Average Loss: 0.2240
+Epoch 100, Average Loss: 0.2141
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 0m 58.09s
+Accuracy on the test dataset: 87.04%
+Improvement per second of computation: 1.498320%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 0.001
+  Number of Epochs: 100
+  Number of Hidden Layers: 2
+  Layer Sizes: 784 -> [128 -> 64] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 0.6808
+Epoch 10, Average Loss: 0.3162
+Epoch 20, Average Loss: 0.2775
+Epoch 30, Average Loss: 0.2559
+Epoch 40, Average Loss: 0.2413
+Epoch 50, Average Loss: 0.2320
+Epoch 60, Average Loss: 0.2251
+Stopping at epoch 62 with average loss of 0.2259 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 0m 39.34s
+Accuracy on the test dataset: 87.14%
+Improvement per second of computation: 2.214850%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 5e-06
+  Number of Epochs: 250
+  Number of Hidden Layers: 2
+  Layer Sizes: 784 -> [128 -> 64] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 3.4109
+Epoch 25, Average Loss: 0.3654
+Epoch 50, Average Loss: 0.2824
+Epoch 75, Average Loss: 0.2368
+Epoch 100, Average Loss: 0.2042
+Epoch 125, Average Loss: 0.1792
+Epoch 150, Average Loss: 0.1581
+Epoch 175, Average Loss: 0.1399
+Stopping at epoch 177 with average loss of 0.1390 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 1m 51.79s
+Accuracy on the test dataset: 87.31%
+Improvement per second of computation: 0.780991%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 5e-06
+  Number of Epochs: 250
+  Number of Hidden Layers: 3
+  Layer Sizes: 784 -> [128 -> 64 -> 32] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 1.8150
+Epoch 25, Average Loss: 0.3482
+Epoch 50, Average Loss: 0.2848
+Epoch 75, Average Loss: 0.2473
+Epoch 100, Average Loss: 0.2200
+Epoch 125, Average Loss: 0.1977
+Epoch 150, Average Loss: 0.1779
+Epoch 175, Average Loss: 0.1610
+Stopping at epoch 198 with average loss of 0.1470 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 2m 22.02s
+Accuracy on the test dataset: 87.88%
+Improvement per second of computation: 0.618798%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 1e-05
+  Number of Epochs: 250
+  Number of Hidden Layers: 3
+  Layer Sizes: 784 -> [512 -> 256 -> 128] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 0.7674
+Epoch 25, Average Loss: 0.1607
+Epoch 50, Average Loss: 0.0757
+Epoch 75, Average Loss: 0.0325
+Epoch 100, Average Loss: 0.0117
+Epoch 125, Average Loss: 0.0033
+Epoch 150, Average Loss: 0.0012
+Epoch 175, Average Loss: 0.0026
+Stopping at epoch 191 with average loss of 0.0005 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 4m 28.49s
+Accuracy on the test dataset: 88.81%
+Improvement per second of computation: 0.330773%/s
+========================================================================
+
+
+
+========================================================================
+Training model with the following hyperparameters:
+  Learning Rate: 5e-06
+  Number of Epochs: 500
+  Number of Hidden Layers: 4
+  Layer Sizes: 784 -> [256 -> 128 -> 64 -> 32] -> 10
+
+===== Start of Training =====
+Epoch 0, Average Loss: 1.5054
+Epoch 50, Average Loss: 0.2396
+Epoch 100, Average Loss: 0.1666
+Epoch 150, Average Loss: 0.1139
+Epoch 200, Average Loss: 0.0751
+Stopping at epoch 227 with average loss of 0.0578 due to loss change less than 1e-4.
+====== End of Training ======
+
+================ Model Evaluation ================
+Training time: 0h 3m 26.98s
+Accuracy on the test dataset: 88.18%
+Improvement per second of computation: 0.426032%/s
+========================================================================
+
+
