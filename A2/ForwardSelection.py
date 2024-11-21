@@ -133,3 +133,4 @@ class ForwardSelection:
         y_pred = self.model.predict(X_test)
 
         return y_pred
+
