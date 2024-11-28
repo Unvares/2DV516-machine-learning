@@ -18,3 +18,4 @@ env/
 # IDE-specific (PyCharm, VS Code)
 .idea/
 .vscode/
+.venv/
